@@ -128,7 +128,7 @@ user_agent_parsers:
   # Bots Pattern 'name/0.0.0'
   - regex: '/((?:Ant-|)Nutch|[A-z]+[Bb]ot|[A-z]+[Ss]pider|Axtaris|fetchurl|Isara|ShopSalad|Tailsweep)[ \-](\d+)(?:\.(\d+)|)(?:\.(\d+)|)'
   # Bots Pattern 'name/0.0.0'
-  - regex: '\b(008|Altresium|Argus|BaiduMobaider|BoardReader|DNSGroup|DataparkSearch|EDI|Goodzer|Grub|INGRID|Infohelfer|LinkedInBot|LOOQ|Nutch|OgScrper|PathDefender|Peew|PostPost|Steeler|Twitterbot|VSE|WebCrunch|WebZIP|Y!J-BR[A-Z]|YahooSeeker|envolk|sproose|wminer)/(\d+)(?:\.(\d+)|)(?:\.(\d+)|)'
+  - regex: '\b(008|Altresium|Argus|BaiduMobaider|BoardReader|DNSGroup|DataparkSearch|EDI|Goodzer|Grub|INGRID|Infohelfer|LinkedInBot|LOOQ|Nutch|OgScrper|Pandora|PathDefender|Peew|PostPost|Steeler|Twitterbot|VSE|WebCrunch|WebZIP|Y!J-BR[A-Z]|YahooSeeker|envolk|sproose|wminer)/(\d+)(?:\.(\d+)|)(?:\.(\d+)|)'
 
   # MSIECrawler
   - regex: '(MSIE) (\d+)\.(\d+)([a-z]\d|[a-z]|);.{0,200} MSIECrawler'
@@ -1280,7 +1280,7 @@ os_parsers:
   - regex: '(Apple\s?TV)(?:/(\d+)\.(\d+)|)'
     os_replacement: 'ATV OS X'
 
-  - regex: '(CPU[ +]OS|iPhone[ +]OS|CPU[ +]iPhone|CPU IPhone OS)[ +]+(\d+)[_\.](\d+)(?:[_\.](\d+)|)'
+  - regex: '(CPU[ +]OS|iPhone[ +]OS|CPU[ +]iPhone|CPU IPhone OS|CPU iPad OS)[ +]+(\d+)[_\.](\d+)(?:[_\.](\d+)|)'
     os_replacement: 'iOS'
 
   # remaining cases are mostly only opera uas, so catch opera as to not catch iphone spoofs
@@ -1491,10 +1491,30 @@ os_parsers:
     os_replacement: 'iOS'
     os_v1_replacement: '13'
     os_v2_replacement: '5'
-  - regex: 'CFNetwork/11.{0,100} Darwin/(19)\.\d+'
+  - regex: 'CFNetwork/11.{0,100} Darwin/19\.6\.\d+'
     os_replacement: 'iOS'
     os_v1_replacement: '13'
-  - regex: 'CFNetwork/11.{0,100} Darwin/20\.0\.\d+'
+    os_v2_replacement: '6'
+  - regex: 'CFNetwork/1[01].{0,100} Darwin/19\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '13'
+  - regex: 'CFNetwork/12.{0,100} Darwin/20\.1\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '14'
+    os_v2_replacement: '2'
+  - regex: 'CFNetwork/12.{0,100} Darwin/20\.2\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '14'
+    os_v2_replacement: '3'
+  - regex: 'CFNetwork/12.{0,100} Darwin/20\.3\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '14'
+    os_v2_replacement: '4'
+  - regex: 'CFNetwork/12.{0,100} Darwin/20\.4\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '14'
+    os_v2_replacement: '5'
+  - regex: 'CFNetwork/.{0,100} Darwin/(20)\.\d+'
     os_replacement: 'iOS'
     os_v1_replacement: '14'
   - regex: 'CFNetwork/.{0,100} Darwin/'
@@ -2801,6 +2821,10 @@ device_parsers:
     device_replacement: 'Huawei $1'
     brand_replacement: 'Huawei'
     model_replacement: '$1'
+  - regex: '; {0,2}([^;]{1,200}) Build/(HONOR|Honor)'
+    device_replacement: 'Huawei Honor $1'
+    brand_replacement: 'Huawei'
+    model_replacement: 'Honor $1'
 
   #########
   # HTC
